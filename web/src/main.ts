@@ -240,6 +240,12 @@ $('#ownText').addEventListener('input', () => {
 $$<HTMLButtonElement>('.info-btn').forEach((b) => (b.onclick = () => { const box = document.getElementById(b.getAttribute('aria-controls')!)!; const open = b.getAttribute('aria-expanded') !== 'true'; b.setAttribute('aria-expanded', String(open)); box.hidden = !open; }));
 
 // ---------- build it (only on the demo page): the download starts with the rep's choices ----------
+// "Build it" at the top of the demo page: jump to the Build it section (when the demo sits inside another page, that page scrolls)
+document.getElementById('goBuild')?.addEventListener('click', () => {
+  const el = document.getElementById('build'); if (!el) return;
+  if (parent !== window) parent.postMessage({ type: 'spatius-scroll', y: el.getBoundingClientRect().top + window.scrollY }, '*');
+  else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 $('#download')?.addEventListener('click', (e) => {
   const q = new URLSearchParams({ buyer: st.buyer, difficulty: st.difficulty, lang: st.lang });
   if (st.product) q.set('product', st.product.slice(0, 1500));
