@@ -189,3 +189,13 @@
   .secret.found .seal, .secret.missed .seal { transform: translate(-50%, -50%) scale(0) rotate(-40deg); opacity: 0; }
   .secret.found, .secret.missed { padding-top: 16px; min-height: 0; transition: padding 500ms 300ms; }
   .secret.found p { font: 500 15px/1.45 var(--hp-font-sans); }
+  /* ---------- mood: a late call. The panel continues the dark gauge band, so the whole stage reads as one ---------- */
+  .panel { background: #1B1926; color: #E9E6F7; }
+  .panel .k { color: #9C97BD; }
+  .panel .info-btn { color: #9C97BD; } .panel .info-btn:hover, .panel .info-btn[aria-expanded="true"] { background: #2B2740; color: #fff; }
+  .panel .info-box { background: #24212F; color: #CFC9EE; } .panel .info-box b { color: #fff; }
+  .secret { background: #24212F; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .06); }
+  .secret .flap { background: #322E45; }
+  .objs span { background: rgb(240 162 58 / .16); color: #F6C98A; }
+  .objs .none { color: #8E89B0; }
+  .know { color: #CFC9EE; } .know b { color: #fff; }
