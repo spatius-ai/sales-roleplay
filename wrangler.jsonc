@@ -1,0 +1,14 @@
+// Cloudflare Workers settings for Sales role-play. Used by "Deploy to Cloudflare" and by `npm run deploy`.
+{
+  "name": "sales-roleplay",
+  "main": "server/worker.mjs",
+  "compatibility_date": "2025-09-01",
+  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "build": { "command": "npm run build" },
+  "vars": {
+    "SPATIUS_REGION": "us-west",
+    "ROLEPLAY_BUYER": "owner",
+    "ROLEPLAY_DIFFICULTY": "realistic",
+    "ROLEPLAY_LANG": "en"
+  }
+}

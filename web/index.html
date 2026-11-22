@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales role-play</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/website.css">
+<style>
+  /* the page around the partner: centred, with room to breathe */
+  body { margin: 0; background: var(--lab-page, #F5F5F7); }
+  .page { max-width: 1240px; margin: 0 auto; padding: 32px 24px 40px; }
+  .made { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 28px; color: var(--lab-muted, #6E7187); text-decoration: none; }
+  .made img { width: 18px; height: 18px; }
+  @media (max-width: 600px) { .page { padding: 16px 8px 28px; } }
+  /* inside another page (embed.js): that page already has its margins */
+  .framed body { background: transparent; } .framed .page { padding: 0; max-width: none; } .framed .made { margin-top: 16px; }
+</style>
+<script>if (window.parent !== window) document.documentElement.classList.add('framed');</script>
+<style>.below { grid-template-columns: repeat(2, minmax(0, 1fr)); }</style>
+</head>
+<body>
+<div class="spatius-website-theme page">
+<div class="block">
+  <div class="intro">
+    <div>
+      <span class="eyebrow hp-type-eyebrow">Sales practice</span>
+      <h1 class="hp-type-feature-lead">Sales role-play</h1>
+      <p class="hp-type-body">Practise the call before the real one. The buyer pushes back like a real one, and hides the real reason they might not buy. Watch the interest meter, ask good questions, and find the hidden objection.</p>
+    </div>
+    <div class="row"><button class="btn btn-brand hp-type-action" id="start" type="button">Start the call</button></div>
+  </div>
+
+  <div class="card room">
+    <div class="setup">
+      <span class="lbl hp-type-label">Buyer</span>
+      <div class="pills hp-type-label" id="buyers"><button data-buyer="finance" aria-pressed="false"><img src="assets/sr/victor-still.webp" alt="">Finance director</button><button data-buyer="it" aria-pressed="false"><img src="assets/nadia.webp" alt="">Head of IT</button><button data-buyer="owner" aria-pressed="true"><img src="assets/face.jpg" alt="">Business owner</button></div>
+      <span class="lbl hp-type-label">Difficulty</span>
+      <div class="pills hp-type-label" id="levels"><button data-difficulty="easy" aria-pressed="false">Easy</button><button data-difficulty="realistic" aria-pressed="true">Realistic</button><button data-difficulty="tough" aria-pressed="false">Tough</button></div>
+      <span class="lbl hp-type-label">Language</span>
+      <div class="pills hp-type-label" id="langs"><button data-lang="en" aria-pressed="true">English</button><button data-lang="es" aria-pressed="false">Español</button><button data-lang="zh" aria-pressed="false">中文</button><button data-lang="ar" aria-pressed="false">العربية</button><button data-lang="fr" aria-pressed="false">Français</button></div>
+    </div>
+    <div class="product">
+      <span class="lbl hp-type-label">You sell</span>
+      <span class="name hp-type-label" id="productName"><b>ShiftPilot</b> · staff scheduling for restaurants (sample)</span>
+      <button class="btn btn-secondary hp-type-action" id="ownBtn" type="button">Use your own product</button>
+      <button class="info-btn" type="button" aria-expanded="false" aria-controls="i-product" aria-label="About the product"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+    </div>
+    <div class="info-box hp-type-card-copy" id="i-product" hidden style="margin-top:12px">
+      <p><b>The sample:</b> ShiftPilot, staff scheduling software for restaurants and cafés, $8 per staff member per month, with a 14-day free trial. Made up for practice.</p>
+      <p><b>Your own product:</b> paste a few lines about what you sell, who it is for and what it costs. The buyer will push back on that.</p>
+    </div>
+    <div class="own" id="own" hidden>
+      <textarea id="ownText" aria-label="Your product" placeholder="What you sell, who it is for, and what it costs. For example: Acme CRM, a simple CRM for dental clinics, $49 per user per month."></textarea>
+      <p class="hp-type-label">The next call uses this product. Leave it empty to go back to the sample.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="call">
+        <img class="bg" src="assets/sr/office.webp" alt="">
+        <div class="avatar" id="avatarBox"><img class="still" id="still" src="assets/face.jpg" alt="The buyer"><div id="avatar"></div></div>
+        <img class="front" src="assets/sr/office.webp" alt="" aria-hidden="true">
+        <span class="status hp-type-mono"><i></i><span id="state">Ready</span></span>
+        <span class="clock hp-type-mono" id="clock">03:00</span>
+        <span class="load" id="load">The buyer is joining…</span>
+        <div class="subs" aria-live="polite"><span class="who" id="who">Julian · Business owner</span><span class="line" dir="auto" id="said">Press Start the call. Ask before you pitch.</span></div>
+      </div>
+      <div class="panel" aria-label="How the call is going">
+        <div class="meter">
+          <div class="top"><span class="k">Interest</span><span class="num" id="num">35<small>/100</small></span></div>
+          <div class="bar"><i id="dot" style="left:35%"></i></div>
+          <div class="why" id="why"><span class="delta same">Start</span><span>It moves with every answer.</span></div>
+        </div>
+        <div class="secret" id="secret">
+          <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span id="secretK">Hidden objection</span><button class="info-btn" type="button" aria-expanded="false" aria-controls="i-secret" aria-label="About the hidden objection" style="margin-left:auto;color:inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button></span>
+          <p id="secretText"><span class="blur">The real reason they might not buy is hidden here</span></p>
+        </div>
+        <div class="info-box hp-type-card-copy" id="i-secret" hidden style="margin:0">
+          <p><b>The hidden objection:</b> every buyer has one real reason they might not buy, made up for each call. They will not say it if you only pitch.</p>
+          <p><b>How to find it:</b> ask about how they work today, their plans and timing, and what could stop them. When you find it, this card turns green.</p>
+        </div>
+        <div><span class="k">Objections raised</span><div class="objs" id="objs"><span class="none hp-type-label">None yet</span></div></div>
+        <div><span class="k">What you know</span><p class="know" id="know">Start the call to meet the buyer.</p></div>
+      </div>
+      <div class="score" id="score" role="dialog" aria-labelledby="scoreTitle">
+        <div class="box" id="scoreBox"><p class="wait hp-type-card-copy">Scoring your call…</p></div>
+      </div>
+    </div>
+
+    <form class="dock" id="ask">
+      <button class="mic" id="mic" type="button" aria-label="Speak" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg></button>
+      <label class="field"><input id="q" autocomplete="off" placeholder="Talk to the buyer, or type…" aria-label="What you say"><button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></label>
+      <button class="btn btn-end hp-type-action" id="end" type="button" style="height:44px">End the call</button>
+    </form>
+  </div>
+
+  <div class="below">
+    <div class="card">
+      <span class="label-mono hp-type-mono">How it works</span>
+      <ol class="steps hp-type-card-copy">
+        <li><span class="n hp-type-mono">01</span><span>Pick a buyer, a difficulty and what you sell.</span></li>
+        <li><span class="n hp-type-mono">02</span><span>Talk. The buyer pushes back, and the interest meter moves with every answer.</span></li>
+        <li><span class="n hp-type-mono">03</span><span>Ask good questions to find the hidden objection.</span></li>
+        <li><span class="n hp-type-mono">04</span><span>End the call for your scorecard, with a better way to say your weakest line.</span></li>
+      </ol>
+    </div>
+    <div class="card">
+      <span class="label-mono hp-type-mono">A tip</span>
+      <p class="tip hp-type-card-copy">Ask before you pitch. Buyers open up when you ask how they work today, what is hard, what their timing is, and what could stop them. Pitching early makes the meter drop.</p>
+    </div>
+  </div>
+</div>
+<a class="made hp-type-label" href="https://www.spatius.ai" target="_blank" rel="noopener"><img src="assets/spatius-mark.svg" alt="">Made with Spatius avatars</a>
+</div>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>
