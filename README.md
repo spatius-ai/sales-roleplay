@@ -36,6 +36,7 @@ sales-roleplay/
   .dev.vars.example         secrets for Cloudflare
   server/
     brain.mjs               the buyer itself: setup with the hidden objection, each reply, the meter, the scorecard
+    voices.mjs              optional ElevenLabs voices, one per person (used when ELEVENLABS_API_KEY is set)
     app.mjs                 the API: session token, hearing, setup, turns, scorecard, voice (uses brain.mjs)
     node.mjs                runs the app on your computer
     worker.mjs              runs the app on Cloudflare Workers
@@ -131,6 +132,7 @@ The page calls `/api/...` and loads `/assets/...` on the same address as the pag
 | `SPATIUS_APP_ID` | Yes | Your Spatius App ID |
 | `SPATIUS_REGION` | No | `us-west` (default) or your region |
 | `OPENAI_API_KEY` | No | Your OpenAI key; without it, starter minutes are used |
+| `ELEVENLABS_API_KEY` | No | ElevenLabs voices: each person has their own voice, and a native voice for Arabic. Without it, the OpenAI voice is used, and it is also used if ElevenLabs refuses a request. Model: `ELEVENLABS_MODEL` (default `eleven_v4_turbo`) |
 | `OPENAI_BASE_URL` | No | Another OpenAI-compatible address for your own key. Your OpenAI key is never sent to the starter service. |
 | `SPATIUS_STARTER_URL` | No | Another starter service address (for testing) |
 | `ROLEPLAY_BUYER` | No | Starting buyer: `finance`, `it` or `owner` |
