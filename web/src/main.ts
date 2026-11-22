@@ -85,12 +85,13 @@ function showSaid(text: string, buyer: boolean) {
 function showMeter(value: number, why = '', before = value) {
   $('#num').innerHTML = `${value}<small>/100</small>`; $('#dot').style.left = `${value}%`;
   const d = value - before;
+  const g = $('.gauge'); g.classList.remove('up', 'down'); void g.offsetWidth; if (d) g.classList.add(d > 0 ? 'up' : 'down'); // the number flashes when it moves
   if (why) $('#why').innerHTML = `<span class="delta ${d > 0 ? 'up' : d < 0 ? 'down' : 'same'}">${d > 0 ? '+' : ''}${d}</span><span>${esc(why)}</span>`;
 }
 function showObjections() { $('#objs').innerHTML = st.objections.length ? st.objections.map((o) => `<span>${esc(o)}</span>`).join('') : '<span class="none hp-type-label">None yet</span>'; }
 function showSecret(state: 'locked' | 'found' | 'missed') {
   const box = $('#secret'); box.classList.remove('found', 'missed');
-  if (state === 'locked') { $('#secretK').textContent = 'Hidden objection'; $('#secretText').innerHTML = '<span class="blur">The real reason they might not buy is hidden here</span>'; return; }
+  if (state === 'locked') { $('#secretK').textContent = 'Sealed: the hidden objection'; $('#secretText').innerHTML = '<span class="blur">The real reason they might not buy is hidden here</span>'; return; }
   box.classList.add(state);
   $('#secretK').textContent = state === 'found' ? 'Hidden objection found' : 'The hidden objection was';
   $('#secretText').textContent = st.setup?.hidden.reason || '';
